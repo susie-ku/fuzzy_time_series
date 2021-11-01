@@ -1,0 +1,1738 @@
+---
+title: "R Notebook"
+output:
+  html_document:
+    df_print: paged
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*.
+
+```{r}
+library(ggplot2)
+library(tidyverse)
+library(forecast)
+library(gridExtra)
+library(urca)
+library(tseries)
+library(urca)
+```
+
+```{r}
+set.seed(1000)
+alpha = 0.5
+Z <- rnorm(100, mean = 0, sd = 1)
+ar_1_100 <- rnorm(100)
+for (i in 2:length(Z)) {
+  ar_1_100[i] <- alpha + 0.7 * ar_1_100[i - 1] + Z[i]
+}
+```
+
+```{r}
+autoplot(ts(ar_1_100))
+autoplot(diff(ts(ar_1_100)))
+ggAcf(diff(ts(ar_1_100)))
+autoplot(diff(diff(ts(ar_1_100))))
+ggAcf(diff(diff(ts(ar_1_100))))
+ggPacf(diff(diff(ts(ar_1_100))))  
+fit1 <- Arima(ts(ar_1_100), order = c(1,0,0))          
+summary(fit1)
+autoplot(residuals(fit1))
+ggAcf(residuals(fit1))
+ggPacf(residuals(fit1))
+ur_test1 <- ur.df(diff(diff(ar_1_100)), type = "none", selectlags = "BIC")
+summary(ur_test1)
+kpss_test1 <- ur.kpss(diff(diff(ar_1_100)))
+summary(kpss_test1)
+Box.test(residuals(fit1), lag = 24, fitdf = 8, type = 'Ljung')
+jarque.bera.test(residuals(fit1))
+autoplot(forecast(fit1, h = 24)) + ylab("")
+```
+
+```{r}
+set.seed(1001)
+alpha = 0.5
+Z <- rnorm(200, mean = 0, sd = 1)
+ar_1_200 <- rnorm(200)
+for (i in 2:length(Z)) {
+  ar_1_200[i] <- alpha + 0.7 * ar_1_200[i - 1] + Z[i]
+}
+```
+
+```{r}
+autoplot(ts(ar_1_200))
+autoplot(diff(ts(ar_1_200)))
+ggAcf(diff(ts(ar_1_200)))
+autoplot(diff(diff(ts(ar_1_200))))
+ggAcf(diff(diff(ts(ar_1_200))))
+ggPacf(diff(diff(ts(ar_1_200))))  
+fit1 <- Arima(ts(ar_1_200), order = c(1,0,0))          
+summary(fit1)
+autoplot(residuals(fit1))
+ggAcf(residuals(fit1))
+ggPacf(residuals(fit1))
+#ur_test1 <- ur.df(diff(diff(ar_1_100)), type = "none", selectlags = "BIC")
+#summary(ur_test1)
+#kpss_test1 <- ur.kpss(diff(diff(ar_1_100)))
+#summary(kpss_test1)
+#Box.test(residuals(fit1), lag = 24, fitdf = 8, type = 'Ljung')
+#jarque.bera.test(residuals(fit1))
+#autoplot(forecast(fit1, h = 24)) + ylab("")
+```
+
+```{r}
+set.seed(1002)
+alpha = 0.5
+Z <- rnorm(400, mean = 0, sd = 1)
+ar_1_400 <- rnorm(400)
+for (i in 2:length(Z)) {
+  ar_1_400[i] <- alpha + 0.7 * ar_1_400[i - 1] + Z[i]
+}
+```
+
+```{r}
+autoplot(ts(ar_1_400))
+autoplot(diff(ts(ar_1_400)))
+ggAcf(diff(ts(ar_1_400)))
+autoplot(diff(diff(ts(ar_1_400))))
+ggAcf(diff(diff(ts(ar_1_400))))
+ggPacf(diff(diff(ts(ar_1_400))))  
+fit1 <- Arima(ts(ar_1_400), order = c(1,0,0))          
+summary(fit1)
+autoplot(residuals(fit1))
+ggAcf(residuals(fit1))
+ggPacf(residuals(fit1))
+```
+
+```{r}
+set.seed(1003)
+alpha = 0.5
+Z <- rnorm(800, mean = 0, sd = 1)
+ar_1_800 <- rnorm(800)
+for (i in 2:length(Z)) {
+  ar_1_800[i] <- alpha + 0.7 * ar_1_800[i - 1] + Z[i]
+}
+```
+
+```{r}
+autoplot(ts(ar_1_800))
+autoplot(diff(ts(ar_1_800)))
+ggAcf(diff(ts(ar_1_800)))
+autoplot(diff(diff(ts(ar_1_800))))
+ggAcf(diff(diff(ts(ar_1_800))))
+ggPacf(diff(diff(ts(ar_1_800))))  
+fit1 <- Arima(ts(ar_1_800), order = c(1,0,0))          
+summary(fit1)
+autoplot(residuals(fit1))
+ggAcf(residuals(fit1))
+ggPacf(residuals(fit1))
+```
+
+```{r}
+set.seed(1004)
+alpha = 0.5
+Z <- rnorm(1600, mean = 0, sd = 1)
+ar_1_1600 <- rnorm(1600)
+for (i in 2:length(Z)) {
+  ar_1_1600[i] <- alpha + 0.7 * ar_1_1600[i - 1] + Z[i]
+}
+```
+
+```{r}
+autoplot(ts(ar_1_1600))
+autoplot(diff(ts(ar_1_1600)))
+ggAcf(diff(ts(ar_1_1600)))
+autoplot(diff(diff(ts(ar_1_1600))))
+ggAcf(diff(diff(ts(ar_1_1600))))
+ggPacf(diff(diff(ts(ar_1_1600))))  
+fit1 <- Arima(ts(ar_1_1600), order = c(1,0,0))          
+summary(fit1)
+autoplot(residuals(fit1))
+ggAcf(residuals(fit1))
+ggPacf(residuals(fit1))
+```
+
+```{r}
+set.seed(1006)
+alpha = 0.5
+Z <- rnorm(10000, mean = 0, sd = 1)
+ar_1_10000 <- rnorm(10000)
+for (i in 2:length(Z)) {
+  ar_1_10000[i] <- alpha + 0.7 * ar_1_10000[i - 1] + Z[i]
+}
+```
+
+```{r}
+autoplot(ts(ar_1_10000))
+autoplot(diff(ts(ar_1_10000)))
+ggAcf(diff(ts(ar_1_10000)))
+autoplot(diff(diff(ts(ar_1_10000))))
+ggAcf(diff(diff(ts(ar_1_10000))))
+ggPacf(diff(diff(ts(ar_1_10000))))  
+fit1 <- Arima(ts(ar_1_10000), order = c(1,0,0))          
+summary(fit1)
+autoplot(residuals(fit1))
+ggAcf(residuals(fit1))
+ggPacf(residuals(fit1))
+```
+
+```{r}
+fit1.coef <- c()
+iters <- 1
+repeat {
+  set.seed(1006 + iters)
+  alpha = 0.5
+  Z <- rnorm(100, mean = 0, sd = 1)
+  ar1_100 <- rnorm(100)
+  for (i in 2:length(Z)) {
+    ar1_100[i] <- alpha + 0.7 * ar1_100[i - 1] + Z[i]
+  }
+  fit1.coef[iters] <- Arima(ts(ar1_100), order = c(1,0,0))
+  iters <- iters + 1
+  if (iters == 501) {
+    break
+  }
+}
+
+coef(fit1.coef)
+```
+
+```{r}
+iters <- 1
+b <- c()
+c <- c()
+repeat {
+  set.seed(123456 + iters)
+  x = rnorm(100, 1, 1)
+  b0 = 1 # intercept chosen at your choice
+  b1 = 1 # coef chosen at your choice
+  h = function(x) 1 + .4 * x^2 - x^3 + 7 * x^4 # h performs heteroscedasticity function
+  eps <- rnorm(100, 0, h(x))
+  y <- b0 + b1 * x + eps
+  # plot(x, y)
+  # abline(lsfit(x, y))
+  # abline(b0, b1, col = 2)
+  a <- lsfit(x, y)
+  params100 <- unname(a$coefficients)
+  b[iters] <- params100[1]
+  c[iters] <- params100[2]
+  iters <- iters + 1
+  if (iters == 501) {
+    break
+  }
+}
+
+print(mean(b))
+print(sd(b))
+print(mean(c))
+print(sd(c))
+# typeof(params100[2])
+# params100[1:2][2]
+# a <- c()
+# a[1] <- params100[][2]
+# a
+```
+
+```{r}
+iters <- 1
+b <- c()
+c <- c()
+repeat {
+  set.seed(123456567 + iters)
+  x = rnorm(200, 1, 1)
+  b0 = 1 # intercept chosen at your choice
+  b1 = 1 # coef chosen at your choice
+  h = function(x) 1 + .4 * x^2 - x^3 + 7 * x^4 # h performs heteroscedasticity function
+  eps <- rnorm(200, 0, h(x))
+  y <- b0 + b1 * x + eps
+  # plot(x, y)
+  # abline(lsfit(x, y))
+  # abline(b0, b1, col = 2)
+  a <- lsfit(x, y)
+  params200 <- unname(a$coefficients)
+  b[iters] <- params200[1]
+  c[iters] <- params200[2]
+  iters <- iters + 1
+  if (iters == 501) {
+    break
+  }
+}
+
+print(mean(b))
+print(sd(b))
+print(mean(c))
+print(sd(c))
+```
+
+```{r}
+iters <- 1
+b <- c()
+c <- c()
+repeat {
+  set.seed(1234 + iters)
+  x = rnorm(400, 1, 1)
+  b0 = 1 # intercept chosen at your choice
+  b1 = 1 # coef chosen at your choice
+  h = function(x) 1 + .4 * x^2 - x^3 + 7 * x^4 # h performs heteroscedasticity function
+  eps <- rnorm(400, 0, h(x))
+  y <- b0 + b1 * x + eps
+  # plot(x, y)
+  # abline(lsfit(x, y))
+  # abline(b0, b1, col = 2)
+  a <- lsfit(x, y)
+  params400 <- unname(a$coefficients)
+  b[iters] <- params400[1]
+  c[iters] <- params400[2]
+  iters <- iters + 1
+  if (iters == 501) {
+    break
+  }
+}
+
+print(mean(b))
+print(sd(b))
+print(mean(c))
+print(sd(c))
+```
+
+```{r}
+iters <- 1
+b <- c()
+c <- c()
+repeat {
+  set.seed(123498 + iters)
+  x = rnorm(1600, 1, 1)
+  b0 = 1 # intercept chosen at your choice
+  b1 = 1 # coef chosen at your choice
+  h = function(x) 1 + .4 * x^2 - x^3 + 7 * x^4 # h performs heteroscedasticity function
+  eps <- rnorm(1600, 0, h(x))
+  y <- b0 + b1 * x + eps
+  # plot(x, y)
+  # abline(lsfit(x, y))
+  # abline(b0, b1, col = 2)
+  a <- lsfit(x, y)
+  params1600 <- unname(a$coefficients)
+  b[iters] <- params1600[1]
+  c[iters] <- params1600[2]
+  iters <- iters + 1
+  if (iters == 501) {
+    break
+  }
+}
+
+print(mean(b))
+print(sd(b))
+print(mean(c))
+print(sd(c))
+```
+
+```{r}
+iters <- 1
+b <- c()
+c <- c()
+repeat {
+  set.seed(9876 + iters)
+  x = rnorm(1600, 1, 1)
+  b0 = 1 # intercept chosen at your choice
+  b1 = 1 # coef chosen at your choice
+  h = function(x) 1 + .4 * x^2 - x^3 + 7 * x^4 # h performs heteroscedasticity function
+  eps <- rnorm(1600, 0, h(x))
+  y <- b0 + b1 * x + eps
+  # plot(x, y)
+  # abline(lsfit(x, y))
+  # abline(b0, b1, col = 2)
+  a <- lsfit(x, y)
+  params1600 <- unname(a$coefficients)
+  b[iters] <- params1600[1]
+  c[iters] <- params1600[2]
+  iters <- iters + 1
+  if (iters == 501) {
+    break
+  }
+}
+
+print(mean(b))
+print(sd(b))
+print(mean(c))
+print(sd(c))
+```
+
+```{r}
+iters <- 1
+b <- c()
+c <- c()
+repeat {
+  set.seed(987 + iters)
+  x = rnorm(3200, 1, 1)
+  b0 = 1 # intercept chosen at your choice
+  b1 = 1 # coef chosen at your choice
+  h = function(x) 1 + .4 * x^2 - x^3 + 7 * x^4 # h performs heteroscedasticity function
+  eps <- rnorm(3200, 0, h(x))
+  y <- b0 + b1 * x + eps
+  # plot(x, y)
+  # abline(lsfit(x, y))
+  # abline(b0, b1, col = 2)
+  a <- lsfit(x, y)
+  params3200 <- unname(a$coefficients)
+  b[iters] <- params3200[1]
+  c[iters] <- params3200[2]
+  iters <- iters + 1
+  if (iters == 501) {
+    break
+  }
+}
+
+print(mean(b))
+print(sd(b))
+print(mean(c))
+print(sd(c))
+```
+
+```{r}
+iters <- 1
+b <- c()
+c <- c()
+repeat {
+  set.seed(98700 + iters)
+  x = rnorm(10000, 1, 1)
+  b0 = 1 # intercept chosen at your choice
+  b1 = 1 # coef chosen at your choice
+  h = function(x) 1 + .4 * x^2 - x^3 + 7 * x^4 # h performs heteroscedasticity function
+  eps <- rnorm(10000, 0, h(x))
+  y <- b0 + b1 * x + eps
+  # plot(x, y)
+  # abline(lsfit(x, y))
+  # abline(b0, b1, col = 2)
+  a <- lsfit(x, y)
+  params10000 <- unname(a$coefficients)
+  b[iters] <- params10000[1]
+  c[iters] <- params10000[2]
+  iters <- iters + 1
+  if (iters == 501) {
+    break
+  }
+}
+
+print(mean(b))
+print(sd(b))
+print(mean(c))
+print(sd(c))
+```
+
+```{r}
+iters <- 1
+b <- c()
+c <- c()
+repeat {
+  set.seed(456 + iters)
+  x = rnorm(100000, 1, 1)
+  b0 = 1 # intercept chosen at your choice
+  b1 = 1 # coef chosen at your choice
+  h = function(x) 1 + .4 * x^2 - x^3 + 7 * x^4 # h performs heteroscedasticity function
+  eps <- rnorm(100000, 0, h(x))
+  y <- b0 + b1 * x + eps
+  # plot(x, y)
+  # abline(lsfit(x, y))
+  # abline(b0, b1, col = 2)
+  a <- lsfit(x, y)
+  params100000 <- unname(a$coefficients)
+  b[iters] <- params100000[1]
+  c[iters] <- params100000[2]
+  iters <- iters + 1
+  if (iters == 501) {
+    break
+  }
+}
+
+print(mean(b))
+print(sd(b))
+print(mean(c))
+print(sd(c))
+```
+
+```{r}
+iters <- 1
+b <- c()
+c <- c()
+repeat {
+  set.seed(1236 + iters)
+  x = rnorm(100, 1, 1)
+  b0 = 1 # intercept chosen at your choice
+  b1 = 1 # coef chosen at your choice
+  Z <- rnorm(100, mean = 0, sd = 1)
+  ar.epsilon <- rnorm(100)
+  for (i in 2:length(Z)) {
+    ar.epsilon[i] <- 0.5 + 1.7 * ar.epsilon[i - 1] + Z[i]
+  }
+  y <- b0 + b1 * x + ar.epsilon
+  a <- lsfit(x, y)
+  params100 <- unname(a$coefficients)
+  b[iters] <- params100[1]
+  c[iters] <- params100[2]
+  iters <- iters + 1
+  if (iters == 501) {
+    break
+  }
+}
+
+print(mean(b))
+print(sd(b))
+print(mean(c))
+print(sd(c))
+```
+
+```{r}
+iters <- 1
+b <- c()
+c <- c()
+repeat {
+  set.seed(1236 + iters)
+  x = rnorm(800, 1, 1)
+  b0 = 1 # intercept chosen at your choice
+  b1 = 1 # coef chosen at your choice
+  Z <- rnorm(800, mean = 0, sd = 1)
+  ar.epsilon <- rnorm(800)
+  for (i in 2:length(Z)) {
+    ar.epsilon[i] <- 0.5 + 1.7 * ar.epsilon[i - 1] + Z[i]
+  }
+  y <- b0 + b1 * x + ar.epsilon
+  a <- lsfit(x, y)
+  params800 <- unname(a$coefficients)
+  b[iters] <- params800[1]
+  c[iters] <- params800[2]
+  iters <- iters + 1
+  if (iters == 501) {
+    break
+  }
+}
+
+print(mean(b))
+print(sd(b))
+print(mean(c))
+print(sd(c))
+```
+
+```{r}
+iters <- 1
+b <- c()
+c <- c()
+repeat {
+  set.seed(12346 + iters)
+  x = rnorm(200, 1, 1)
+  b0 = 1 # intercept chosen at your choice
+  b1 = 1 # coef chosen at your choice
+  ar.epsilon <- arima.sim(list(order = c(1, 0, 0), ar = 0.7), n = 200, sd = 20)
+  # h = function(x) 1 + .4 * x^2 - x^3 + 7 * x^4 # h performs heteroscedasticity function
+  # eps <- rnorm(100, 0, h(x))
+  y <- b0 + b1 * x + ar.epsilon
+  a <- lsfit(x, y)
+  params200 <- unname(a$coefficients)
+  b[iters] <- params200[1]
+  c[iters] <- params200[2]
+  iters <- iters + 1
+  if (iters == 501) {
+    break
+  }
+}
+
+print(mean(b))
+print(sd(b))
+print(mean(c))
+print(sd(c))
+```
+
+```{r}
+iters <- 1
+b <- c()
+c <- c()
+repeat {
+  set.seed(1346 + iters)
+  x = rnorm(400, 1, 1)
+  b0 = 1 # intercept chosen at your choice
+  b1 = 1 # coef chosen at your choice
+  ar.epsilon <- arima.sim(list(order = c(1, 0, 0), ar = 0.7), n = 400, sd = 20)
+  # h = function(x) 1 + .4 * x^2 - x^3 + 7 * x^4 # h performs heteroscedasticity function
+  # eps <- rnorm(100, 0, h(x))
+  y <- b0 + b1 * x + ar.epsilon
+  a <- lsfit(x, y)
+  params400 <- unname(a$coefficients)
+  b[iters] <- params400[1]
+  c[iters] <- params400[2]
+  iters <- iters + 1
+  if (iters == 501) {
+    break
+  }
+}
+
+print(mean(b))
+print(sd(b))
+print(mean(c))
+print(sd(c))
+```
+
+```{r}
+iters <- 1
+b <- c()
+c <- c()
+repeat {
+  set.seed(136 + iters)
+  x = rnorm(800, 1, 1)
+  b0 = 1 # intercept chosen at your choice
+  b1 = 1 # coef chosen at your choice
+  ar.epsilon <- arima.sim(list(order = c(1, 0, 0), ar = 0.7), n = 800, sd = 20)
+  # h = function(x) 1 + .4 * x^2 - x^3 + 7 * x^4 # h performs heteroscedasticity function
+  # eps <- rnorm(100, 0, h(x))
+  y <- b0 + b1 * x + ar.epsilon
+  a <- lsfit(x, y)
+  params800 <- unname(a$coefficients)
+  b[iters] <- params800[1]
+  c[iters] <- params800[2]
+  iters <- iters + 1
+  if (iters == 501) {
+    break
+  }
+}
+
+print(mean(b))
+print(sd(b))
+print(mean(c))
+print(sd(c))
+```
+
+```{r}
+iters <- 1
+b <- c()
+c <- c()
+repeat {
+  set.seed(136 + iters)
+  x = rnorm(1600, 1, 1)
+  b0 = 1 # intercept chosen at your choice
+  b1 = 1 # coef chosen at your choice
+  ar.epsilon <- arima.sim(list(order = c(1, 0, 0), ar = 0.7), n = 1600, sd = 20)
+  # h = function(x) 1 + .4 * x^2 - x^3 + 7 * x^4 # h performs heteroscedasticity function
+  # eps <- rnorm(100, 0, h(x))
+  y <- b0 + b1 * x + ar.epsilon
+  a <- lsfit(x, y)
+  params1600 <- unname(a$coefficients)
+  b[iters] <- params1600[1]
+  c[iters] <- params1600[2]
+  iters <- iters + 1
+  if (iters == 501) {
+    break
+  }
+}
+
+print(mean(b))
+print(sd(b))
+print(mean(c))
+print(sd(c))
+```
+
+```{r}
+iters <- 1
+b <- c()
+c <- c()
+repeat {
+  set.seed(13 + iters)
+  x = rnorm(3200, 1, 1)
+  b0 = 1 # intercept chosen at your choice
+  b1 = 1 # coef chosen at your choice
+  ar.epsilon <- arima.sim(list(order = c(1, 0, 0), ar = 0.7), n = 3200, sd = 20)
+  # h = function(x) 1 + .4 * x^2 - x^3 + 7 * x^4 # h performs heteroscedasticity function
+  # eps <- rnorm(100, 0, h(x))
+  y <- b0 + b1 * x + ar.epsilon
+  a <- lsfit(x, y)
+  params3200 <- unname(a$coefficients)
+  b[iters] <- params3200[1]
+  c[iters] <- params3200[2]
+  iters <- iters + 1
+  if (iters == 501) {
+    break
+  }
+}
+
+print(mean(b))
+print(sd(b))
+print(mean(c))
+print(sd(c))
+```
+
+```{r}
+iters <- 1
+b <- c()
+c <- c()
+repeat {
+  set.seed(1367 + iters)
+  x = rnorm(10000, 1, 1)
+  b0 = 1 # intercept chosen at your choice
+  b1 = 1 # coef chosen at your choice
+  ar.epsilon <- arima.sim(list(order = c(1, 0, 0), ar = 0.7), n = 10000, sd = 20)
+  # h = function(x) 1 + .4 * x^2 - x^3 + 7 * x^4 # h performs heteroscedasticity function
+  # eps <- rnorm(100, 0, h(x))
+  y <- b0 + b1 * x + ar.epsilon
+  a <- lsfit(x, y)
+  params10000 <- unname(a$coefficients)
+  b[iters] <- params10000[1]
+  c[iters] <- params10000[2]
+  iters <- iters + 1
+  if (iters == 501) {
+    break
+  }
+}
+
+print(mean(b))
+print(sd(b))
+print(mean(c))
+print(sd(c))
+```
+
+```{r}
+iters <- 1
+b <- c()
+c <- c()
+repeat {
+  set.seed(17 + iters)
+  x = rnorm(100000, 1, 1)
+  b0 = 1 # intercept chosen at your choice
+  b1 = 1 # coef chosen at your choice
+  ar.epsilon <- arima.sim(list(order = c(1, 0, 0), ar = 0.7), n = 100000, sd = 20)
+  # h = function(x) 1 + .4 * x^2 - x^3 + 7 * x^4 # h performs heteroscedasticity function
+  # eps <- rnorm(100, 0, h(x))
+  y <- b0 + b1 * x + ar.epsilon
+  a <- lsfit(x, y)
+  params100000 <- unname(a$coefficients)
+  b[iters] <- params100000[1]
+  c[iters] <- params100000[2]
+  iters <- iters + 1
+  if (iters == 501) {
+    break
+  }
+}
+
+print(mean(b))
+print(sd(b))
+print(mean(c))
+print(sd(c))
+```
+
+```{r}
+iters <- 1
+b <- c()
+c <- c()
+repeat {
+  set.seed(106 + iters)
+  x = rnorm(10000, 1, 1)
+  b0 = 1 # intercept chosen at your choice
+  b1 = 1 # coef chosen at your choice
+  h = function(x) 1 + .4 * x^2 - x^3 + 7 * x^4 # h performs heteroscedasticity function
+  ar.epsilon <- arima.sim(list(order = c(1, 0, 0), ar = 0.7), n = 10000, sd = 20)
+  eps <- h(ar.epsilon)
+  y <- b0 + b1 * x + eps
+  a <- lsfit(x, y)
+  params10000 <- unname(a$coefficients)
+  b[iters] <- params10000[1]
+  c[iters] <- params10000[2]
+  iters <- iters + 1
+  if (iters == 501) {
+    break
+  }
+}
+
+print(mean(b))
+print(sd(b))
+print(mean(c))
+print(sd(c))
+
+plot(x, y)
+abline(lsfit(x, y))
+abline(b0, b1, col = 2)
+```
+
+```{r}
+iters <- 1
+b <- c()
+c <- c()
+repeat {
+  set.seed(106 + iters)
+  x = rnorm(10000, 1, 1)
+  b0 = 1 # intercept chosen at your choice
+  b1 = 1 # coef chosen at your choice
+  h = function(x) 1 + .4 * x^2 # h performs heteroscedasticity function
+  ar.epsilon <- arima.sim(list(order = c(1, 0, 0), ar = 0.7), n = 10000, sd = 20)
+  eps <- h(ar.epsilon)
+  y <- b0 + b1 * x + eps
+  a <- lsfit(x, y)
+  params10000 <- unname(a$coefficients)
+  b[iters] <- params10000[1]
+  c[iters] <- params10000[2]
+  iters <- iters + 1
+  if (iters == 501) {
+    break
+  }
+}
+
+print(mean(b))
+print(sd(b))
+print(mean(c))
+print(sd(c))
+
+plot(x, y)
+abline(lsfit(x, y))
+abline(b0, b1, col = 2)
+```
+
+```{r}
+iters <- 1
+b <- c()
+c <- c()
+repeat {
+  set.seed(106 + iters)
+  x = rnorm(10000, 1, 1)
+  b0 = 1 # intercept chosen at your choice
+  b1 = 1 # coef chosen at your choice
+  # h = function(x) 1 + .4 * x^2 # h performs heteroscedasticity function
+  ar.epsilon <- arima.sim(list(order = c(1, 0, 0), ar = 0.7), n = 10000, sd = 20)
+  # eps <- h(ar.epsilon)
+  y <- b0 + b1 * x + ar.epsilon
+  a <- lsfit(x, y)
+  params <- unname(a$coefficients)
+  b[iters] <- params[1]
+  c[iters] <- params[2]
+  iters <- iters + 1
+  if (iters == 501) {
+    break
+  }
+}
+
+print(mean(b))
+print(sd(b))
+print(mean(c))
+print(sd(c))
+
+plot(x, y)
+abline(lsfit(x, y))
+abline(b0, b1, col = 2)
+```
+
+```{r}
+iters <- 1
+b <- c()
+c <- c()
+repeat {
+  set.seed(107 + iters)
+  x = rnorm(100000, 1, 1)
+  b0 = 1 # intercept chosen at your choice
+  b1 = 1 # coef chosen at your choice
+  h = function(x) 1 + 4 * x # h performs heteroscedasticity function
+  ar.epsilon <- arima.sim(list(order = c(1, 0, 0), ar = 0.7), n = 100000, sd = 20)
+  eps <- h(ar.epsilon)
+  y <- b0 + b1 * x + eps
+  a <- lsfit(x, y)
+  params100000 <- unname(a$coefficients)
+  b[iters] <- params100000[1]
+  c[iters] <- params100000[2]
+  iters <- iters + 1
+  if (iters == 501) {
+    break
+  }
+}
+
+print(mean(b))
+print(sd(b))
+print(mean(c))
+print(sd(c))
+
+plot(x, y)
+abline(lsfit(x, y))
+abline(b0, b1, col = 2)
+```
+
+```{r}
+ar(x, aic = TRUE, order.max = NULL,
+   method = c("yule-walker", "burg", "ols", "mle", "yw"),
+   na.action, series, ...)
+
+ar.burg(x, ...)
+## Default S3 method:
+ar.burg(x, aic = TRUE, order.max = NULL,
+        na.action = na.fail, demean = TRUE, series,
+        var.method = 1, ...)
+## S3 method for class 'mts'
+ar.burg(x, aic = TRUE, order.max = NULL,
+        na.action = na.fail, demean = TRUE, series,
+        var.method = 1, ...)
+
+ar.yw(x, ...)
+## Default S3 method:
+ar.yw(x, aic = TRUE, order.max = NULL,
+      na.action = na.fail, demean = TRUE, series, ...)
+## S3 method for class 'mts'
+ar.yw(x, aic = TRUE, order.max = NULL,
+      na.action = na.fail, demean = TRUE, series,
+      var.method = 1, ...)
+
+ar.mle(x, aic = TRUE, order.max = NULL, na.action = na.fail,
+       demean = TRUE, series, ...)
+
+## S3 method for class 'ar'
+predict(object, newdata, n.ahead = 1, se.fit = TRUE, ...)
+```
+
+```{r}
+set.seed(15)
+alpha = 0.5
+Z <- rnorm(100, mean = 0, sd = 1)
+ar_1_100 <- rnorm(100)
+for (i in 2:length(Z)) {
+  ar_1_100[i] <- alpha + 0.7 * ar_1_100[i - 1] + Z[i]
+}
+ts.plot(ar_1_100)
+
+set.seed(16)
+alpha = 0.5
+Z <- rnorm(200, mean = 0, sd = 1)
+ar_1_200 <- rnorm(200)
+for (i in 2:length(Z)) {
+  ar_1_200[i] <- alpha + 0.7 * ar_1_200[i - 1] + Z[i]
+}
+ts.plot(ar_1_200)
+
+set.seed(17)
+alpha = 0.5
+Z <- rnorm(400, mean = 0, sd = 1)
+ar_1_400 <- rnorm(400)
+for (i in 2:length(Z)) {
+  ar_1_400[i] <- alpha + 0.7 * ar_1_400[i - 1] + Z[i]
+}
+ts.plot(ar_1_400)
+
+set.seed(18)
+alpha = 0.5
+Z <- rnorm(800, mean = 0, sd = 1)
+ar_1_800 <- rnorm(800)
+for (i in 2:length(Z)) {
+  ar_1_800[i] <- alpha + 0.7 * ar_1_800[i - 1] + Z[i]
+}
+ts.plot(ar_1_800)
+
+set.seed(19)
+alpha = 0.5
+Z <- rnorm(1600, mean = 0, sd = 1)
+ar_1_1600 <- rnorm(1600)
+for (i in 2:length(Z)) {
+  ar_1_1600[i] <- alpha + 0.7 * ar_1_1600[i - 1] + Z[i]
+}
+ts.plot(ar_1_1600)
+
+set.seed(20)
+alpha = 0.5
+Z <- rnorm(3200, mean = 0, sd = 1)
+ar_1_3200 <- rnorm(3200)
+for (i in 2:length(Z)) {
+  ar_1_3200[i] <- alpha + 0.7 * ar_1_3200[i - 1] + Z[i]
+}
+ts.plot(ar_1_3200)
+
+set.seed(21)
+alpha = 0.5
+Z <- rnorm(10000, mean = 0, sd = 1)
+ar_1_10000 <- rnorm(10000)
+for (i in 2:length(Z)) {
+  ar_1_10000[i] <- alpha + 0.7 * ar_1_10000[i - 1] + Z[i]
+}
+ts.plot(ar_1_10000)
+```
+
+```{r}
+library(garchx)
+library(tseries)
+
+set.seed(1)
+garch_100 <- garchxSim(n = 100, intercept = 0.2, arch = 0.1, garch = 0.8, asym = NULL, xreg = NULL, innovations = NULL, backcast.values = list(), verbose = FALSE, as.zoo = TRUE)
+ts.plot(garch_100)
+
+set.seed(2)
+garch_200 <- garchxSim(n = 200, intercept = 0.2, arch = 0.1, garch = 0.8, asym = NULL, xreg = NULL, innovations = NULL, backcast.values = list(), verbose = FALSE, as.zoo = TRUE)
+ts.plot(garch_200)
+
+set.seed(3)
+garch_400 <- garchxSim(n = 400, intercept = 0.2, arch = 0.1, garch = 0.8, asym = NULL, xreg = NULL, innovations = NULL, backcast.values = list(), verbose = FALSE, as.zoo = TRUE)
+ts.plot(garch_400)
+
+set.seed(4)
+garch_800 <- garchxSim(n = 800, intercept = 0.2, arch = 0.1, garch = 0.8, asym = NULL, xreg = NULL, innovations = NULL, backcast.values = list(), verbose = FALSE, as.zoo = TRUE)
+ts.plot(garch_800)
+
+set.seed(5)
+garch_1600 <- garchxSim(n = 1600, intercept = 0.2, arch = 0.1, garch = 0.8, asym = NULL, xreg = NULL, innovations = NULL, backcast.values = list(), verbose = FALSE, as.zoo = TRUE)
+ts.plot(garch_1600)
+print(var(garch_1600))
+
+set.seed(6)
+garch_3200 <- garchxSim(n = 3200, intercept = 0.2, arch = 0.1, garch = 0.8, asym = NULL, xreg = NULL, innovations = NULL, backcast.values = list(), verbose = FALSE, as.zoo = TRUE)
+ts.plot(garch_3200)
+print(var(garch_3200))
+
+set.seed(7)
+garch_10000 <- garchxSim(n = 10000, intercept = 0.2, arch = 0.1, garch = 0.8, asym = NULL, xreg = NULL, innovations = NULL, backcast.values = list(), verbose = FALSE, as.zoo = TRUE)
+ts.plot(garch_10000)
+# print(var(garch_10000))
+# kpss.test(garch_10000)
+# adf.test(garch_10000)
+```
+
+
+```{r}
+# white noise
+# theoretical variance = 1
+set.seed(567)
+var_1 <- c()
+iters <- 1
+repeat {
+  white_noise <- arima.sim(model = list(order = c(0,0,0)), n = 10000, mean = 0)
+  var_1[iters] <- var(white_noise)
+  iters <- iters + 1
+  if (iters == 501) {
+    break
+  }
+}
+
+print(mean(var_1))
+print(sd(var_1))
+# plot_1_100_500 <- plot(iters_1, list_1, ylim = c(0.95, 1.05))
+# plot_diff_100_500 <- plot(iters_1, diff_1)
+# var_1_100_500 <- var_1_100_500 / 500
+# diff_1_100_500 <- abs(1 - var_1_100_500)
+```
+
+```{r}
+# white noise
+# theoretical variance = 1
+var_1_100_100000 <- 0
+iters <- 1
+iters_1 <- c(1:100000)
+list_1 <- c()
+diff_1 <- c()
+repeat {
+  white_noise <- arima.sim(model = list(order = c(0,0,0)), n = 100, mean = 0)
+  # variance counting
+  var_1_100_100000 <- 1/99 * (sum(white_noise^2) - 2 * sum(white_noise) * mean(white_noise) + 100 * (mean(white_noise))^2) + var_1_100_100000
+  list_1[iters] <- c(var_1_100_100000 / iters)
+  diff_1[iters] <- c((1 - var_1_100_100000 / iters)^2 / iters)
+  iters <- iters + 1
+  if (iters == 100001) {
+    break
+  }
+} 
+plot_1_100_100000 <- plot(iters_1, list_1, ylim = c(0.96, 1.05))
+plot_diff_100_100000 <- plot(iters_1, diff_1, ylim = c(0, 0.002))
+# var_1_100_500 <- var_1_100_500 / 500
+# diff_1_100_500 <- abs(1 - var_1_100_500)
+```
+
+```{r}
+# white noise
+# theoretical variance = 1
+# variance estimation = 1.000897
+# diff estimation = 0.0008971535
+var_1_100_2000 <- 0
+iters <- 0
+repeat {
+  white_noise <- arima.sim(model = list(order = c(0,0,0)), n = 100, mean = 0)
+  # variance counting
+  var_1_100_2000 <- 1/99 * (sum(white_noise^2) - 2 * sum(white_noise) * mean(white_noise) + 100 * (mean(white_noise))^2) + var_1_100_2000
+  iters <- iters + 1
+  if (iters == 2000) {
+    break
+  }
+}
+var_1_100_2000 <- var_1_100_2000 / 2000
+diff_1_100_2000 <- abs(1 - var_1_100_2000)
+```
+
+```{r}
+# white noise
+# theoretical variance = 1
+# variance estimation = 1.000897
+# diff estimation = 0.0008971535
+var_1_100_8000 <- 0
+iters <- 0
+repeat {
+  white_noise <- arima.sim(model = list(order = c(0,0,0)), n = 100, mean = 0)
+  # variance counting
+  var_1_100_8000 <- 1/99 * (sum(white_noise^2) - 2 * sum(white_noise) * mean(white_noise) + 100 * (mean(white_noise))^2) + var_1_100_8000
+  iters <- iters + 1
+  if (iters == 8000) {
+    break
+  }
+}
+var_1_100_8000 <- var_1_100_8000 / 8000
+diff_1_100_8000 <- abs(1 - var_1_100_8000)
+```
+
+```{r}
+# white noise
+# theoretical variance = 1
+# variance estimation = 1.000897
+# diff estimation = 0.0008971535
+var_1_100_15000 <- 0
+iters <- 0
+repeat {
+  white_noise <- arima.sim(model = list(order = c(0,0,0)), n = 100, mean = 0)
+  # variance counting
+  var_1_100_15000 <- 1/99 * (sum(white_noise^2) - 2 * sum(white_noise) * mean(white_noise) + 100 * (mean(white_noise))^2) + var_1_100_15000
+  iters <- iters + 1
+  if (iters == 15000) {
+    break
+  }
+}
+var_1_100_15000 <- var_1_100_15000 / 15000
+diff_1_100_15000 <- abs(1 - var_1_100_15000)
+```
+
+```{r}
+# white noise
+# theoretical variance = 1
+# variance estimation = 1.000897
+# diff estimation = 0.0008971535
+var_1_100_100000 <- 0
+iters <- 0
+repeat {
+  white_noise <- arima.sim(model = list(order = c(0,0,0)), n = 100, mean = 0)
+  # variance counting
+  var_1_100_100000 <- 1/99 * (sum(white_noise^2) - 2 * sum(white_noise) * mean(white_noise) + 100 * (mean(white_noise))^2) + var_1_100_100000
+  iters <- iters + 1
+  if (iters == 100000) {
+    break
+  }
+}
+var_1_100_100000 <- var_1_100_100000 / 100000
+diff_1_100_100000 <- abs(1 - var_1_100_100000)
+```
+
+```{r}
+# white noise, n = 200
+# theoretical variance = 1
+# variance estimation = 1.072981
+var_1_200_500 <- 0
+iters <- 0
+repeat {
+  white_noise_200 <- arima.sim(model = list(order = c(0,0,0)), n = 200, mean = 0)
+  # variance counting
+  var_1_200_500 <- 1/199 * (sum(white_noise_200^2) - 2 * sum(white_noise_200) * mean(white_noise_200) + 200 * (mean(white_noise_200))^2) + var_1_200_500
+  iters <- iters + 1
+  if (iters == 500) {
+    break
+  }
+}
+var_1_200_500 <- var_1_200_500 / 500
+diff_1_200_500 <- abs(1 - var_1_200_500)
+```
+
+```{r}
+# white noise, n = 200
+# theoretical variance = 1
+# variance estimation = 1.072981
+var_1_200_1000 <- 0
+iters <- 0
+repeat {
+  white_noise_200 <- arima.sim(model = list(order = c(0,0,0)), n = 200, mean = 0)
+  # variance counting
+  var_1_200_1000 <- 1/199 * (sum(white_noise_200^2) - 2 * sum(white_noise_200) * mean(white_noise_200) + 200 * (mean(white_noise_200))^2) + var_1_200_1000
+  iters <- iters + 1
+  if (iters == 1000) {
+    break
+  }
+}
+var_1_200_1000 <- var_1_200_1000 / 1000
+diff_1_200_1000 <- abs(1 - var_1_200_1000)
+```
+
+```{r}
+# white noise, n = 200
+# theoretical variance = 1
+# variance estimation = 1.072981
+var_1_200_2000 <- 0
+iters <- 0
+repeat {
+  white_noise_200 <- arima.sim(model = list(order = c(0,0,0)), n = 200, mean = 0)
+  # variance counting
+  var_1_200_2000 <- 1/199 * (sum(white_noise_200^2) - 2 * sum(white_noise_200) * mean(white_noise_200) + 200 * (mean(white_noise_200))^2) + var_1_200_2000
+  iters <- iters + 1
+  if (iters == 2000) {
+    break
+  }
+}
+var_1_200_2000 <- var_1_200_2000 / 2000
+diff_1_200_2000 <- abs(1 - var_1_200_2000)
+```
+
+```{r}
+# white noise, n = 200
+# theoretical variance = 1
+# variance estimation = 1.072981
+var_1_200_8000 <- 0
+iters <- 0
+repeat {
+  white_noise_200 <- arima.sim(model = list(order = c(0,0,0)), n = 200, mean = 0)
+  # variance counting
+  var_1_200_8000 <- 1/199 * (sum(white_noise_200^2) - 2 * sum(white_noise_200) * mean(white_noise_200) + 200 * (mean(white_noise_200))^2) + var_1_200_8000
+  iters <- iters + 1
+  if (iters == 8000) {
+    break
+  }
+}
+var_1_200_8000 <- var_1_200_8000 / 8000
+diff_1_200_8000 <- abs(1 - var_1_200_8000)
+```
+
+```{r}
+# white noise, n = 400
+# theoretical variance = 1
+# variance estimation = 1.044578
+
+white_noise_400 <- arima.sim(model = list(order = c(0,0,0)), n = 400, mean = 0)
+
+ts.plot(white_noise_400)
+
+# variance counting
+# var_1_400 <- var(white_noise_400)
+var_1_400 <- 1/399 * (sum(white_noise_400^2) - 2 * sum(white_noise_400) * mean(white_noise_400) + 400 * (mean(white_noise_400))^2)
+```
+
+```{r}
+# white noise, n = 800
+# theoretical variance = 1
+# variance estimation = 1.027857
+
+white_noise_800 <- arima.sim(model = list(order = c(0,0,0)), n = 800, mean = 0)
+
+ts.plot(white_noise_800)
+
+# variance counting
+# var_1_800 <- var(white_noise_800)
+var_1_800 <- 1/799 * (sum(white_noise_800^2) - 2 * sum(white_noise_800) * mean(white_noise_800) + 800 * (mean(white_noise_800))^2)
+```
+
+```{r}
+# AR(1)
+set.seed(678)
+alpha = 0.5
+var_2 <- c()
+iters <- 1
+repeat {
+  Z <- rnorm(10000, mean = 0, sd = 1)
+  ar_1 <- rnorm(1)
+  for (i in 2:length(Z)) {
+    ar_1[i] <- alpha + 0.7 * ar_1[i - 1] + Z[i]
+  }
+  var_2[iters] <- var(ar_1)
+  iters <- iters + 1
+  if (iters == 501) {
+    break
+  }
+}
+print(mean(var_2))
+print(sd(var_2))
+
+# plot_2_500 <- plot(iters_2, list_2)
+# plot_diff_500 <- plot(iters_2, diff_2)
+# variance counting
+# var_2 <- var(ar_1)
+# var_2 <- 1/99 * (sum(ar_1^2) - 2 * sum(ar_1) * mean(ar_1) + 100 * (mean(ar_1))^2)
+```
+
+```{r}
+# AR(1), n = 200
+# theoretical variance = sigma^2 / (1 - alpha1^2) = 1.96078431373
+# variance estimation = 1.812528
+
+# constant alpha
+alpha = 0.5
+
+# purely random process with mean 0 and standard deviation 1
+Z <- rnorm(200, mean = 0, sd = 1)
+
+# seed
+ar_1_200 <- rnorm(1)
+
+# the process
+for (i in 2:length(Z)) {
+  ar_1_200[i] <- alpha + 0.7 * ar_1_200[i - 1] + Z[i]
+}
+
+# process plotting
+ts.plot(ar_1_200)
+
+# variance counting
+# var_2_200 <- var(ar_1_200)
+var_2_200 <- 1/199 * (sum(ar_1_200^2) - 2 * sum(ar_1_200) * mean(ar_1_200) + 200 * (mean(ar_1_200))^2)
+```
+
+```{r}
+# AR(1), n = 400
+# theoretical variance = sigma^2 / (1 - alpha1^2) = 1.96078431373
+# variance estimation = 1.889428
+
+# constant alpha
+alpha = 0.5
+
+# purely random process with mean 0 and standard deviation 1
+Z <- rnorm(400, mean = 0, sd = 1)
+
+# seed
+ar_1_400 <- rnorm(1)
+
+# the process
+for (i in 2:length(Z)) {
+  ar_1_400[i] <- alpha + 0.7 * ar_1_400[i - 1] + Z[i]
+}
+
+# process plotting
+ts.plot(ar_1_400)
+
+# variance counting
+# var_2_400 <- var(ar_1_400)
+var_2_400 <- 1/399 * (sum(ar_1_400^2) - 2 * sum(ar_1_400) * mean(ar_1_400) + 400 * (mean(ar_1_400))^2)
+```
+
+```{r}
+# AR(1), n = 800
+# theoretical variance = sigma^2 / (1 - alpha1^2) = 1.96078431373
+# variance estimation = 1.940309
+
+# constant alpha
+alpha = 0.5
+
+# purely random process with mean 0 and standard deviation 1
+Z <- rnorm(800, mean = 0, sd = 1)
+
+# seed
+ar_1_800 <- rnorm(1)
+
+# the process
+for (i in 2:length(Z)) {
+  ar_1_800[i] <- alpha + 0.7 * ar_1_800[i - 1] + Z[i]
+}
+
+# process plotting
+ts.plot(ar_1_800)
+
+# variance counting
+# var_2_800 <- var(ar_1_800)
+var_2_800 <- 1/799 * (sum(ar_1_800^2) - 2 * sum(ar_1_800) * mean(ar_1_800) + 800 * (mean(ar_1_800))^2)
+```
+
+
+
+```{r}
+# AR(2)
+# stationarity condition: |a_2|< 1, a_1 +- a_2 < 1
+
+ar_2 <- arima.sim(n = 100, list(ar = c(0.4, 0.4)), sd = 1)
+ts.plot(ar_2)
+var_3 <- var(ar_2)
+```
+
+```{r}
+# AR(2), n = 200
+# stationarity condition: |a_2|< 1, a_1 +- a_2 < 1
+
+ar_2_200 <- arima.sim(n = 200, list(ar = c(0.4, 0.4)), sd = 1)
+ts.plot(ar_2_200)
+var_3_200 <- var(ar_2_200)
+```
+
+```{r}
+# AR(2), n = 400
+# stationarity condition: |a_2|< 1, a_1 +- a_2 < 1
+
+ar_2_400 <- arima.sim(n = 400, list(ar = c(0.4, 0.4)), sd = 1)
+ts.plot(ar_2_400)
+var_3_400 <- var(ar_2_400)
+```
+
+```{r}
+# AR(2), n = 800
+# stationarity condition: |a_2|< 1, a_1 +- a_2 < 1
+
+ar_2_800 <- arima.sim(n = 800, list(ar = c(0.4, 0.4)), sd = 1)
+ts.plot(ar_2_800)
+var_3_800 <- var(ar_2_800)
+```
+
+
+```{r}
+# AR(3)
+
+ar_3 <- arima.sim(n = 100, list(ar = c(0.2, 0.2, 0.2)), sd = 1)
+ts.plot(ar_3)
+var_4 <- var(ar_3)
+```
+
+```{r}
+# AR(3), n = 200
+
+ar_3_200 <- arima.sim(n = 200, list(ar = c(0.2, 0.2, 0.2)), sd = 1)
+ts.plot(ar_3_200)
+var_4_200 <- var(ar_3_200)
+```
+
+```{r}
+# AR(3), n = 400
+
+ar_3_400 <- arima.sim(n = 400, list(ar = c(0.2, 0.2, 0.2)), sd = 1)
+ts.plot(ar_3_400)
+var_4_400 <- var(ar_3_400)
+```
+
+```{r}
+# AR(3), n = 800
+
+ar_3_800 <- arima.sim(n = 800, list(ar = c(0.2, 0.2, 0.2)), sd = 1)
+ts.plot(ar_3_800)
+var_4_800 <- var(ar_3_800)
+```
+
+```{r}
+# AR(3), n = 800
+library(garchx)
+```
+
+```{r}
+# theoretical variance = 10
+set.seed(22)
+var_3 <- c()
+iters <- 1
+repeat {
+  garch <- garchxSim(n = 10000, intercept = 0.2, arch = 0.1, garch = 0.8, asym = NULL, xreg = NULL, innovations = NULL, backcast.values = list(), verbose = FALSE, as.zoo = TRUE)
+  var_3[iters] <- var(garch)
+  iters <- iters + 1
+  if (iters == 501) {
+    break
+  }
+}
+
+print(mean(var_3))
+print(sd(var_3))
+# garch <- sim_garch1c1(model, 100, n.start = 0, seed = NULL)
+```
+
+```{r}
+library(tseries)
+library(garchx)
+garch <- garchxSim(n = 100, intercept = 0.2, arch = 0.5, garch = 0.2, asym = NULL, xreg = NULL, innovations = NULL, backcast.values = list(), verbose = FALSE, as.zoo = TRUE)
+kpss.test(garch)
+adf.test(garch)
+```
+
+```{r}
+# theoretical variance = 2
+set.seed(23)
+var_3 <- 0
+iters <- 1
+iters_3 <- c(1:1000)
+repeat {
+  garch <- garchxSim(n = 100, intercept = 0, arch = 0.1, garch = 0.8, asym = NULL, xreg = NULL, innovations = NULL, backcast.values = list(), verbose = FALSE, as.zoo = TRUE)
+  var_3[iters] <- c(var(garch))
+  iters <- iters + 1
+  if (iters == 501) {
+    break
+  }
+}
+
+print(mean(var_3))
+print(sd(var_3))
+# garch <- sim_garch1c1(model, 100, n.start = 0, seed = NULL)
+```
+
+```{r}
+set.seed(24)
+ma_1_100 <- arima.sim(model = list(ma = 0.7), n = 100)
+ts.plot(ma_1_100)
+
+set.seed(25)
+ma_1_200 <- arima.sim(model = list(ma = 0.7), n = 200)
+ts.plot(ma_1_200)
+
+set.seed(26)
+ma_1_400 <- arima.sim(model = list(ma = 0.7), n = 400)
+ts.plot(ma_1_400)
+
+set.seed(27)
+ma_1_800 <- arima.sim(model = list(ma = 0.7), n = 800)
+ts.plot(ma_1_800)
+
+set.seed(28)
+ma_1_1600 <- arima.sim(model = list(ma = 0.7), n = 1600)
+ts.plot(ma_1_1600)
+
+set.seed(29)
+ma_1_3200 <- arima.sim(model = list(ma = 0.7), n = 3200)
+ts.plot(ma_1_3200)
+
+set.seed(30)
+ma_1_10000 <- arima.sim(model = list(ma = 0.4), n = 10000)
+ts.plot(ma_1_10000)
+
+kpss.test(ma_1_10000)
+adf.test(ma_1_10000)
+```
+
+
+```{r}
+# 1.49
+iters <- 1
+var_4 <- c()
+repeat {
+  ma_1 <- arima.sim(model = list(ma = 0.7), n = 10000)
+  var_4[iters] <- c(var(ma_1))
+  iters <- iters + 1
+  if (iters == 501) {
+    break
+  }
+}
+
+print(mean(var_4))
+print(sd(var_4))
+```
+
+
+```{r}
+# AR(1), n = 200
+# theoretical variance = sigma^2 / (1 - alpha1^2) = 1.96078431373
+# variance estimation = 1.812528
+
+# constant alpha
+alpha = 0.5
+
+# purely random process with mean 0 and standard deviation 1
+Z <- rnorm(200, mean = 0, sd = 1)
+
+# seed
+ar_1_200 <- rnorm(1)
+
+# the process
+for (i in 2:length(Z)) {
+  ar_1_200[i] <- alpha + 0.7 * ar_1_200[i - 1] + Z[i]
+}
+
+# process plotting
+ts.plot(ar_1_200)
+
+# variance counting
+# var_2_200 <- var(ar_1_200)
+var_2_200 <- 1/199 * (sum(ar_1_200^2) - 2 * sum(ar_1_200) * mean(ar_1_200) + 200 * (mean(ar_1_200))^2)
+```
+
+```{r}
+# AR(1), n = 400
+# theoretical variance = 1.49
+# variance estimation = 1.889428
+
+# constant alpha
+alpha = 0.5
+
+# purely random process with mean 0 and standard deviation 1
+Z <- rnorm(400, mean = 0, sd = 1)
+
+# seed
+ar_1_400 <- rnorm(1)
+
+# the process
+for (i in 2:length(Z)) {
+  ar_1_400[i] <- alpha + 0.7 * ar_1_400[i - 1] + Z[i]
+}
+
+# process plotting
+ts.plot(ar_1_400)
+
+# variance counting
+# var_2_400 <- var(ar_1_400)
+var_2_400 <- 1/399 * (sum(ar_1_400^2) - 2 * sum(ar_1_400) * mean(ar_1_400) + 400 * (mean(ar_1_400))^2)
+```
+
+```{r}
+# MA(1)
+# 1.49
+
+alpha = 0.5
+var_ma_1 <- c()
+iters <- 1
+repeat {
+  # purely random process with mean 0 and standard deviation 1
+  Z <- rnorm(10000, mean = 0, sd = 1)
+  ma_1 <- c()
+  ma_1[1] <- rnorm(1)
+  # the process
+  for (i in 2:length(Z)) {
+    ma_1[i] <- Z[i] + 0.7 * Z[i - 1]
+  }
+  var_ma_1[iters] <- var(ma_1)
+  iters <- iters + 1
+  if (iters == 501) {
+    break
+  }
+}
+print(mean(var_ma_1))
+print(sd(var_ma_1))
+
+```
+
+```{r}
+# ma(1), n = 100
+# theoretical variance = 
+iters <- 1
+list_var_4 <- c()
+repeat {
+  set.seed(30 + iters)
+  ma_1 <- arima.sim(model = list(order = c(0,1,0)), n = 100, mean = 0)
+  # variance counting
+  list_var_4[iters] <- c(var(ma_1))
+  iters <- iters + 1
+  if (iters == 501) {
+    break
+  }
+}
+
+print(mean(list_var_4))
+print(sd(list_var_4))
+```
+
+```{r}
+# ma(1), n = 200
+# theoretical variance = 
+iters <- 1
+list_var_4 <- c()
+repeat {
+  set.seed(530 + iters)
+  ma_1 <- arima.sim(model = list(order = c(0,1,0)), n = 200, mean = 0)
+  # variance counting
+  list_var_4[iters] <- c(var(ma_1))
+  iters <- iters + 1
+  if (iters == 501) {
+    break
+  }
+}
+
+print(mean(list_var_4))
+print(sd(list_var_4))
+```
+
+```{r}
+# ma(1), n = 400
+# theoretical variance = 
+iters <- 1
+list_var_4 <- c()
+repeat {
+  set.seed(1030 + iters)
+  ma_1 <- arima.sim(model = list(order = c(0,1,0)), n = 400, mean = 0)
+  # variance counting
+  list_var_4[iters] <- c(var(ma_1))
+  iters <- iters + 1
+  if (iters == 501) {
+    break
+  }
+}
+
+print(mean(list_var_4))
+print(sd(list_var_4))
+```
+
+```{r}
+# ma(1), n = 800
+# theoretical variance = 
+iters <- 1
+list_var_4 <- c()
+repeat {
+  set.seed(1530 + iters)
+  ma_1 <- arima.sim(model = list(order = c(0,1,0)), n = 800, mean = 0)
+  # variance counting
+  list_var_4[iters] <- c(var(ma_1))
+  iters <- iters + 1
+  if (iters == 501) {
+    break
+  }
+}
+
+print(mean(list_var_4))
+print(sd(list_var_4))
+```
+
+```{r}
+# ma(1), n = 1600
+# theoretical variance = 
+iters <- 1
+list_var_4 <- c()
+repeat {
+  set.seed(2030 + iters)
+  ma_1 <- arima.sim(model = list(order = c(0,1,0)), n = 1600, mean = 0)
+  # variance counting
+  list_var_4[iters] <- c(var(ma_1))
+  iters <- iters + 1
+  if (iters == 501) {
+    break
+  }
+}
+
+print(mean(list_var_4))
+print(sd(list_var_4))
+```
+
+```{r}
+# ma(1), n = 3200
+# theoretical variance = 
+iters <- 1
+list_var_4 <- c()
+repeat {
+  set.seed(2530 + iters)
+  ma_1 <- arima.sim(model = list(order = c(0,1,0)), n = 3200, mean = 0)
+  # variance counting
+  list_var_4[iters] <- c(var(ma_1))
+  iters <- iters + 1
+  if (iters == 501) {
+    break
+  }
+}
+
+print(mean(list_var_4))
+print(sd(list_var_4))
+```
+
+```{r}
+library(dse)
+library(vars)
+```
+
+```{r}
+NumberVar = 2
+NumberSim = 10000
+iters <- 1
+var_1 <- c()
+var_2 <- c()
+repeat {
+  CoeffMatrix = array(c(1, -0.4, 0.4, 0, 0.2, 0.2, 0, 0.1, -0.6, 1, -0.6, -0.2), c(3, 2, 2))
+  Constant = c(4, 7)
+  D = matrix(c(0.9, 0.7, 0.7, 0.8), nrow = 2, ncol = 2, byrow = TRUE)
+  model2 = ARMA(A = CoeffMatrix, B = D, TREND = Constant)
+  varsim = simulate(model2, sampleT = NumberSim, 
+                  innov = list(matrix(rnorm(NumberSim * NumberVar), nrow = NumberSim, 
+                                      ncol = NumberVar)))
+  varmat = matrix(varsim$output, nrow = NumberSim, ncol = NumberVar)
+  var_1[iters] <- var(varmat[, 1])
+  var_2[iters] <- var(varmat[, 2])
+  iters <- iters + 1
+    if (iters == 501) {
+    break
+  }
+}
+
+print(mean(var_1))
+print(sd(var_1))
+print(mean(var_2))
+print(sd(var_2))
+```
+
+
+

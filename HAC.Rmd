@@ -1,0 +1,378 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*. 
+
+```{r}
+sigma <- function(n) {
+  X <- matrix(sample(1:5, n^2, replace = TRUE), nrow = n)
+  X <- t(X) * X
+  return(X)
+}
+
+error <- function(n, Xmatrix) {
+  e <- c()
+  i <- 0
+  repeat {
+    e[i] <- rnorm(1, mean = 0, sd = sqrt(Xmatrix[i, i]))
+    i <- i + 1
+    if (i == n + 1) {
+      break;
+    }
+  }
+  return(e)
+}
+
+model <- function(X, e, beta) {
+  y <- X %*% beta + e
+  return(y)
+}
+```
+
+```{r}
+set.seed(123)
+beta = c(1, 2, 3)
+X <- matrix(seq(1, 30), nrow = 10, ncol = 3)
+err <- error(10, sigma(10))
+linmodel <- model(X, err, beta)
+linmodel
+```
+
+
+
+```{r}
+iters <- 1
+beta = c(1, 2, 3)
+b1 <- c()
+b2 <- c()
+b3 <- c()
+repeat {
+  set.seed(123 + iters)
+  X <- matrix(runif(300, 1, 10), nrow = 100, ncol = 3)
+  err <- error(100, sigma(100))
+  y <- model(X, err, beta)
+  estimate <- solve(t(X) %*% X) %*% t(X) %*% y
+  b1[iters] <- estimate[1]
+  b2[iters] <- estimate[2]
+  b3[iters] <- estimate[3]
+  iters <- iters + 1
+  if (iters == 501) {
+    break;
+  }
+}
+
+mean(b1)
+mean(b2)
+mean(b3)
+var(b1)
+var(b2)
+var(b3)
+```
+
+```{r}
+iters <- 1
+beta = c(1, 2, 3)
+b1 <- c()
+b2 <- c()
+b3 <- c()
+repeat {
+  set.seed(123 + iters)
+  X <- matrix(runif(600, 1, 10), nrow = 200, ncol = 3)
+  err <- error(200, sigma(200))
+  y <- model(X, err, beta)
+  estimate <- solve(t(X) %*% X) %*% t(X) %*% y
+  b1[iters] <- estimate[1]
+  b2[iters] <- estimate[2]
+  b3[iters] <- estimate[3]
+  iters <- iters + 1
+  if (iters == 501) {
+    break;
+  }
+}
+
+mean(b1)
+mean(b2)
+mean(b3)
+var(b1)
+var(b2)
+var(b3)
+```
+
+```{r}
+iters <- 1
+beta = c(1, 2, 3)
+b1 <- c()
+b2 <- c()
+b3 <- c()
+repeat {
+  set.seed(123 + iters)
+  X <- matrix(runif(1200, 1, 10), nrow = 400, ncol = 3)
+  err <- error(400, sigma(400))
+  y <- model(X, err, beta)
+  estimate <- solve(t(X) %*% X) %*% t(X) %*% y
+  b1[iters] <- estimate[1]
+  b2[iters] <- estimate[2]
+  b3[iters] <- estimate[3]
+  iters <- iters + 1
+  if (iters == 501) {
+    break;
+  }
+}
+
+mean(b1)
+mean(b2)
+mean(b3)
+var(b1)
+var(b2)
+var(b3)
+```
+
+```{r}
+iters <- 1
+beta = c(1, 2, 3)
+b1 <- c()
+b2 <- c()
+b3 <- c()
+repeat {
+  set.seed(123 + iters)
+  X <- matrix(runif(2400, 1, 10), nrow = 800, ncol = 3)
+  err <- error(800, sigma(800))
+  y <- model(X, err, beta)
+  estimate <- solve(t(X) %*% X) %*% t(X) %*% y
+  b1[iters] <- estimate[1]
+  b2[iters] <- estimate[2]
+  b3[iters] <- estimate[3]
+  iters <- iters + 1
+  if (iters == 501) {
+    break;
+  }
+}
+
+mean(b1)
+mean(b2)
+mean(b3)
+var(b1)
+var(b2)
+var(b3)
+```
+
+```{r}
+iters <- 1
+beta = c(1, 2, 3)
+b1 <- c()
+b2 <- c()
+b3 <- c()
+repeat {
+  set.seed(123 + iters)
+  X <- matrix(runif(4800, 1, 10), nrow = 1600, ncol = 3)
+  err <- error(1600, sigma(1600))
+  y <- model(X, err, beta)
+  estimate <- solve(t(X) %*% X) %*% t(X) %*% y
+  b1[iters] <- estimate[1]
+  b2[iters] <- estimate[2]
+  b3[iters] <- estimate[3]
+  iters <- iters + 1
+  if (iters == 501) {
+    break;
+  }
+}
+
+mean(b1)
+mean(b2)
+mean(b3)
+var(b1)
+var(b2)
+var(b3)
+```
+
+```{r}
+iters <- 1
+beta = c(1, 2, 3)
+b1 <- c()
+b2 <- c()
+b3 <- c()
+repeat {
+  set.seed(123 + iters)
+  X <- matrix(runif(9600, 1, 10), nrow = 3200, ncol = 3)
+  err <- error(3200, sigma(3200))
+  y <- model(X, err, beta)
+  estimate <- solve(t(X) %*% X) %*% t(X) %*% y
+  b1[iters] <- estimate[1]
+  b2[iters] <- estimate[2]
+  b3[iters] <- estimate[3]
+  iters <- iters + 1
+  if (iters == 501) {
+    break;
+  }
+}
+
+mean(b1)
+mean(b2)
+mean(b3)
+var(b1)
+var(b2)
+var(b3)
+```
+
+```{r}
+iters <- 1
+beta = c(1, 2, 3)
+b1 <- c()
+b2 <- c()
+b3 <- c()
+repeat {
+  set.seed(123 + iters)
+  X <- matrix(runif(30000, 1, 10), nrow = 10000, ncol = 3)
+  err <- error(10000, sigma(10000))
+  y <- model(X, err, beta)
+  estimate <- solve(t(X) %*% X) %*% t(X) %*% y
+  b1[iters] <- estimate[1]
+  b2[iters] <- estimate[2]
+  b3[iters] <- estimate[3]
+  iters <- iters + 1
+  if (iters == 501) {
+    break;
+  }
+}
+
+mean(b1)
+mean(b2)
+mean(b3)
+var(b1)
+var(b2)
+var(b3)
+```
+
+```{r}
+# White's estimation
+middle_product <- function(ycol, Xmatrix) {
+  sums <- 0
+  e <- ycol - Xmatrix %*% solve(t(Xmatrix) %*% Xmatrix) %*% t(Xmatrix) %*% ycol
+  for (i in 1:length(ycol)) {
+    sums <- sums + (e[i])^2 * Xmatrix[i, ] %*% t(Xmatrix[i, ])
+  }
+  return(sums)
+}
+
+iters <- 1
+beta = c(1, 2, 3)
+var_b1 <- c()
+var_b2 <- c()
+var_b3 <- c()
+cov_12 <- c()
+cov_23 <- c()
+cov_13 <- c()
+repeat {
+  set.seed(123 + iters)
+  X <- matrix(runif(300, 1, 10), nrow = 100, ncol = 3)
+  err <- error(100, sigma(100))
+  y <- model(X, err, beta)
+  var_estimate <- 1 / 100 * solve(1 / 100 * t(X) %*% X) %*% (1 / 100 * middle_product(y, X)) %*% solve(1 / 100 * t(X) %*% X)
+  var_b1[iters] <- var_estimate[1, 1]
+  var_b2[iters] <- var_estimate[2, 2]
+  var_b3[iters] <- var_estimate[3, 3]
+  
+  iters <- iters + 1
+  if (iters == 501) {
+    break;
+  }
+}
+
+mean(var_b1)
+mean(var_b2)
+mean(var_b3)
+var(var_b1)
+var(var_b2)
+var(var_b3)
+```
+
+```{r}
+# White's estimation
+middle_product <- function(ycol, Xmatrix) {
+  sums <- 0
+  e <- ycol - Xmatrix %*% solve(t(Xmatrix) %*% Xmatrix) %*% t(Xmatrix) %*% ycol
+  for (i in 1:length(ycol)) {
+    sums <- sums + (e[i])^2 * Xmatrix[i, ] %*% t(Xmatrix[i, ])
+  }
+  return(sums)
+}
+
+iters <- 1
+beta = c(1, 2, 3)
+var_b1 <- c()
+var_b2 <- c()
+var_b3 <- c()
+repeat {
+  set.seed(123 + iters)
+  X <- matrix(runif(600, 1, 10), nrow = 200, ncol = 3)
+  err <- error(200, sigma(200))
+  y <- model(X, err, beta)
+  var_estimate <- 1 / 200 * solve(1 / 200 * t(X) %*% X) %*% (1 / 200 * middle_product(y, X)) %*% solve(1 / 200 * t(X) %*% X)
+  var_b1[iters] <- var_estimate[1, 1]
+  var_b2[iters] <- var_estimate[2, 2]
+  var_b3[iters] <- var_estimate[3, 3]
+  iters <- iters + 1
+  if (iters == 501) {
+    break;
+  }
+}
+
+mean(var_b1)
+mean(var_b2)
+mean(var_b3)
+var(var_b1)
+var(var_b2)
+var(var_b3)
+```
+
+```{r}
+# White's estimation
+middle_product <- function(ycol, Xmatrix) {
+  sums <- 0
+  e <- ycol - Xmatrix %*% solve(t(Xmatrix) %*% Xmatrix) %*% t(Xmatrix) %*% ycol
+  for (i in 1:length(ycol)) {
+    sums <- sums + (e[i])^2 * Xmatrix[i, ] %*% t(Xmatrix[i, ])
+  }
+  return(sums)
+}
+
+iters <- 1
+beta = c(1, 2, 3)
+var_b1 <- c()
+var_b2 <- c()
+var_b3 <- c()
+repeat {
+  set.seed(123 + iters)
+  X <- matrix(runif(1200, 1, 10), nrow = 400, ncol = 3)
+  err <- error(400, sigma(400))
+  y <- model(X, err, beta)
+  var_estimate <- 1 / 400 * solve(1 / 400 * t(X) %*% X) %*% (1 / 400 * middle_product(y, X)) %*% solve(1 / 400 * t(X) %*% X)
+  var_b1[iters] <- var_estimate[1, 1]
+  var_b2[iters] <- var_estimate[2, 2]
+  var_b3[iters] <- var_estimate[3, 3]
+  iters <- iters + 1
+  if (iters == 501) {
+    break;
+  }
+}
+
+mean(var_b1)
+mean(var_b2)
+mean(var_b3)
+var(var_b1)
+var(var_b2)
+var(var_b3)
+```
+
+
+
+
+
+
+
+
+
